@@ -4,7 +4,7 @@ const picture_sources = [3];
 for (let i = 0; i < 3; i++) {
   picture_sources[i] = document.getElementById("Objects").children[i].src;
 }
-const WinRate = 5;
+const WinRate = prompt('Enter number of points to win:');
 let scoreboard = 0;
 document.getElementById("text").textContent +=
   "(" + WinRate + " points to win)";
