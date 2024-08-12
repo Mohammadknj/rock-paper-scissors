@@ -11,8 +11,11 @@ document.getElementById("text").textContent +=
 let UserPoint = document.getElementById("UserPoint").textContent;
 let CPUpoint = document.getElementById("CPUpoint").textContent;
 let rand_chosen = Number(Math.floor(Math.random(0, 3) * 3));
+let refreshed=true;
+
 for (let num = 0; num < 3; num++) {
   choices[num].addEventListener("click", () => {
+  if(refreshed){
     let CPUchosen = choices[rand_chosen].src;
     document.getElementById("refresh").style.display = "inline-block";
     document.getElementById("space-expression").style.display = "inline-block";
@@ -24,7 +27,6 @@ for (let num = 0; num < 3; num++) {
     choices[0].src = choices[num].src;
     choices[2].style.display = "inline-block";
     choices[2].src = CPUchosen;
-    console.log(scoreboard);
     if (num == 0) {
       if (rand_chosen == 1) {
         UserPoint++;
@@ -77,10 +79,13 @@ for (let num = 0; num < 3; num++) {
       document.getElementById("ResultShow").textContent = Won;
       document.getElementById("refresh").style.display = "none";
     }
+    refreshed=false
+  }    
   });
 }
 
 function Refresh() {
+  refreshed=true
   document.getElementById("refresh").style.display = "none";
   document.getElementById("space-expression").style.display = "none";
   document.getElementById("names").style.display = "none";
@@ -97,6 +102,7 @@ button.addEventListener("click", function () {
   Refresh();
 });
 
+//refresh by pressing space
 document.addEventListener("keydown", (space) => {
   if (space.key == " ") {
     if (scoreboard == WinRate) {
