@@ -1,115 +1,76 @@
 body{
     display: flex;
-}
-#Playground{
-    background-color: rgb(135, 225, 255);
-    height: 600px;
-    width: 800px;
-    border-style: solid;
-    border-width: 4px;
-    border-color: blue;
-    display:flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    position: relative;
-}
-p{
     font-family: Arial;
 }
-.name{
-    margin: 0;
-}
-.Choose{
-    font-size: 50px;
-}
-#names{
+.header{
+    width: 50%;
+    height: 80px;
     display: flex;
-    flex-direction: row;
-    font-size: 60px;
-    column-gap: 300px;
-}
-#Objects{
-    margin-top: 30px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 200px;
-    width: 650px;
     justify-content: space-between;
-}
-img{
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
-    border-radius: 100px;
-    cursor: pointer;
-    
-}
-#Points{
-    margin-left: -4px;
-    background-color: rgb(135, 225, 255);
-    height: 600px;
-    width: 200px;
-    border-style: solid;
-    border-width: 4px;
-    border-color: blue;
-    display: flex;
-    flex-direction: column;
     align-items: center;
+    font-size: 13.9px;
 }
-.Points{
-    font-size: 50px;
-    margin-bottom: 0;
+#Click-to-start-text{
+    width: 100%;
 }
-.PointShow{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 40px;
-    font-size: 30px;
-    font-weight: 600;
-}
-.point{
-    font-family: Arial;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    font-size: 50px;
-}
-#ResultShow{
-    margin-left: 15px;
-    margin-right: 10px;
-    margin-bottom: 60px;
-    font-size: 30px;
-    font-weight: 600;
-}
-#refresh{
-    height: 40px;
-    width: 70px;
-    position: absolute;
-    left: 30px;
-    bottom: 10px;
+#refresh-button{
+    display: none;
+    cursor: pointer;
     color: white;
+    font-size: 22px;
     background-color: green;
     border-style: solid;
+    border-radius: 4px;
     border: none;
-    border-radius: 6px;
+    height: 60%;
+    width: 13%;
+}
+.container{
+    width: 80% ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+table{
+    border-collapse: collapse;
+}
+td{
+    width: 180px;
+    height: 180px;
+    border-right: black solid 3px;
+    border-bottom: black solid 3px;
+    align-items: center;
+}
+td:nth-child(3){
+    border-right: none;
+}
+tr:nth-child(3) td{
+    border-bottom: none;
+}
+td:hover{
     cursor: pointer;
-    font-family: Arial;
-    font-size: 16px;
-    display: none;
+    transition: 0.2s;
+    background-color: rgb(191, 188, 188);
 }
-#typeRes{
-    font-family: Arial;
-    font-size: 60px;
-    padding: 20px;
-    padding-bottom: 0;
-    margin-top: 15px;
-    margin-bottom: 0;
+.scoreboard{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 100px;
 }
-#space-expression{
-    position: absolute;
-    margin: 0;
-    bottom: 5px;
-    right: 10px;
-    display: none;
+.player{
+    text-align: center;
+}
+
+.circle{
+    background-image: url(Pictures/Circle.png);
+    background-size: cover;
+}
+.cross{
+    background-image: url(Pictures/Cross.png);
+    background-size: cover;
 }

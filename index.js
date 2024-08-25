@@ -1,106 +1,146 @@
-document.getElementById("names").style.display = "none";
-const choices = document.querySelectorAll(".image");
-const picture_sources = [3];
-for (let i = 0; i < 3; i++) {
-  picture_sources[i] = document.getElementById("Objects").children[i].src;
+let houses = [];
+let houses_result = [];
+let random = 0;
+let FinishedOneTurn = false;
+let FinishedGame = false;
+let counter = 0;
+let WinRate = null;
+while (WinRate == null) {
+  WinRate = prompt("Enter number of points to win:");
 }
-const WinRate = 5;
-let scoreboard = 0;
-document.getElementById("text").textContent +=
+document.getElementById("Click-to-start-text").textContent +=
   "(" + WinRate + " points to win)";
-let UserPoint = document.getElementById("UserPoint").textContent;
-let CPUpoint = document.getElementById("CPUpoint").textContent;
-let rand_chosen = Number(Math.floor(Math.random(0, 3) * 3));
-for (let num = 0; num < 3; num++) {
-  choices[num].addEventListener("click", () => {
-    let CPUchosen = choices[rand_chosen].src;
-    document.getElementById("refresh").style.display = "inline-block";
-    document.getElementById("space-expression").style.display = "inline-block";
-    document.getElementById("names").style.display = "flex";
-    for (let i = 0; i < 3; i++) {
-      choices[i].style.display = "none";
+for (let i = 1; i <= 9; i++) {
+  houses[i - 1] = document.getElementById(`house ${i}`);
+  houses_result[i - 1] = i; //initializing to change undefined to another thing
+}
+
+for (let i = 0; i < 9; i++) {
+  houses[i].addEventListener("click", () => {
+    //Check_finised();
+    if (FinishedOneTurn == false) {
+      document.getElementById("Click-to-start-text").textContent = "";
     }
-    choices[0].style.display = "inline-block";
-    choices[0].src = choices[num].src;
-    choices[2].style.display = "inline-block";
-    choices[2].src = CPUchosen;
-    console.log(scoreboard);
-    if (num == 0) {
-      if (rand_chosen == 1) {
-        UserPoint++;
-        document.getElementById("UserPoint").textContent = UserPoint;
-        document.getElementById("typeRes").textContent = "YOU WON!";
-      } else if (rand_chosen == 2) {
-        CPUpoint++;
-        document.getElementById("CPUpoint").textContent = CPUpoint;
-        document.getElementById("typeRes").textContent = "CPU WON!";
-      } else {
-        document.getElementById("typeRes").textContent = "Equal!";
+    if (FinishedOneTurn == false) {
+      if (houses[i] != null) {
+        houses[i].classList.add("cross");
+        houses[i] = null;
+        houses_result[i] = "You";
+        counter++;
+        Check_finised();
+        if (FinishedOneTurn == false) {
+          while (true) {
+            random = Math.floor(Math.random() * 9);
+            if (houses[random] != null) {
+              houses[random].classList.add("circle");
+              break;
+            }
+          }
+          houses[random] = null;
+          houses_result[random] = "CPU";
+          Check_finised();
+        }
       }
-    } else if (num == 1) {
-      if (rand_chosen == 0) {
-        CPUpoint++;
-        document.getElementById("CPUpoint").textContent = CPUpoint;
-        document.getElementById("typeRes").textContent = "CPU WON!";
-      } else if (rand_chosen == 2) {
-        UserPoint++;
-        document.getElementById("UserPoint").textContent = UserPoint;
-        document.getElementById("typeRes").textContent = "YOU WON!";
-      } else {
-        document.getElementById("typeRes").textContent = "Equal!";
-      }
-    } else {
-      if (rand_chosen == 0) {
-        UserPoint++;
-        document.getElementById("UserPoint").textContent = UserPoint;
-        document.getElementById("typeRes").textContent = "YOU WON!";
-      } else if (rand_chosen == 1) {
-        CPUpoint++;
-        document.getElementById("CPUpoint").textContent = CPUpoint;
-        document.getElementById("typeRes").textContent = "CPU WON!";
-      } else {
-        document.getElementById("typeRes").textContent = "Equal!";
-      }
-    }
-    scoreboard = Math.max(UserPoint, CPUpoint);
-    if (scoreboard == WinRate) {
-      let Won = "";
-      if (scoreboard == UserPoint) {
-        Won = "You Won!";
-      } else {
-        Won = "CPU Won!";
-      }
-      document.getElementById("space-expression").textContent =
-        "Enter space to refresh the page";
-      document.getElementById("space-expression").style.display =
-        "inline-block";
-      document.getElementById("ResultShow").textContent = Won;
-      document.getElementById("refresh").style.display = "none";
     }
   });
 }
-
-function Refresh() {
-  document.getElementById("refresh").style.display = "none";
-  document.getElementById("space-expression").style.display = "none";
-  document.getElementById("names").style.display = "none";
-  document.getElementById("typeRes").textContent = "";
-  for (let i = 0; i < 3; i++) {
-    choices[i].style.display = "inline-block";
-    choices[i].src = picture_sources[i];
+function Check_finised() {
+  if (counter > 2) {
+    //vertical check
+    for (i = 0; i < 3; i++) {
+      if (
+        houses_result[i] == houses_result[i + 3] &&
+        houses_result[i + 3] == houses_result[i + 6]
+      ) {
+        FinishedOneTurn = true;
+        document.getElementById("refresh-button").style.display =
+          "inline-block";
+        document.getElementById("Click-to-start-text").textContent =
+          houses_result[i] + " Won! Congratulation!";
+        document.getElementById(`${houses_result[i]}`).textContent++;
+        //        return;
+      }
+    }
+    //horizental check
+    for (let i = 0; i <= 6; i += 3) {
+      if (
+        houses_result[i] == houses_result[i + 1] &&
+        houses_result[i + 1] == houses_result[i + 2]
+      ) {
+        FinishedOneTurn = true;
+        document.getElementById("refresh-button").style.display =
+          "inline-block";
+        document.getElementById("Click-to-start-text").textContent =
+          houses_result[i] + " Won! Congratulation!";
+        document.getElementById(`${houses_result[i]}`).textContent++;
+        //return;
+      }
+    }
+    if (
+      houses_result[0] == houses_result[4] &&
+      houses_result[0] == houses_result[8]
+    ) {
+      FinishedOneTurn = true;
+      document.getElementById("refresh-button").style.display = "inline-block";
+      document.getElementById("Click-to-start-text").textContent =
+        houses_result[4] + " Won! Congratulation!";
+      document.getElementById(`${houses_result[4]}`).textContent++;
+      //return;
+    }
+    if (
+      houses_result[2] == houses_result[4] &&
+      houses_result[4] == houses_result[6]
+    ) {
+      FinishedOneTurn = true;
+      document.getElementById("refresh-button").style.display = "inline-block";
+      document.getElementById("Click-to-start-text").textContent =
+        houses_result[4] + " Won! Congratulation!";
+      document.getElementById(`${houses_result[4]}`).textContent++;
+      //return;
+    }
   }
-  rand_chosen = Number(Math.floor(Math.random(0, 3) * 3));
+  if (!FinishedOneTurn) {
+    let cnt = 0;
+    for (let i = 0; i < 9; i++) {
+      if (houses[i] == null) cnt++;
+    }
+    if (cnt == 9) {
+      FinishedOneTurn = true;
+      document.getElementById("refresh-button").style.display = "inline-block";
+      document.getElementById("Click-to-start-text").textContent =
+        "Equal! No one won";
+      //return;
+    }
+  }
+  if (FinishedOneTurn) Check_finised_Game();
 }
-
-const button = document.getElementById("refresh");
-button.addEventListener("click", function () {
-  Refresh();
-});
-
-document.addEventListener("keydown", (space) => {
-  if (space.key == " ") {
-    if (scoreboard == WinRate) {
-      location.reload();
-    } else Refresh();
+document.getElementById("refresh-button").addEventListener("click", () => {
+  if (FinishedGame) location.reload();
+  else {
+    document.getElementById("Click-to-start-text").textContent = "";
+    document.getElementById("refresh-button").style.display = "none";
+    for (let i = 1; i <= 9; i++) {
+      houses[i - 1] = document.getElementById(`house ${i}`);
+      houses[i - 1].classList = "";
+      houses_result[i - 1] = i;
+    }
+    FinishedOneTurn = false;
+    counter = 0;
   }
 });
+function Check_finised_Game() {
+  console.log("game");
+  let UserPoint = document.getElementById("You").textContent;
+  let CPUpoint = document.getElementById("CPU").textContent;
+  console.log(UserPoint);
+  console.log(CPUpoint);
+  if (Math.max(UserPoint, CPUpoint) == WinRate) {
+    let winner;
+    if (WinRate == UserPoint) winner = "You";
+    else winner = "CPU";
+    console.log(100);
+    document.getElementById(`${winner}player`).style.backgroundColor = "yellow";
+    FinishedGame = true;
+    document.getElementById("refresh-button").textContent='Reload'
+  }
+}
